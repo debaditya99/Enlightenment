@@ -7,7 +7,7 @@ import { addTask, toggleTaskStatus, deleteTask, addCanvasNode, syncCanvasElement
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ReactFlow, Background, Controls, addEdge, useNodesState, useEdgesState } from '@xyflow/react'
+import { ReactFlow, Background, Controls, addEdge, useNodesState, useEdgesState, type Node, type Edge } from '@xyflow/react' // 👈 Ensure 'Node' and 'Edge' are imported
 
 export default function HomePage() {
   const supabase = createClient()
@@ -16,8 +16,8 @@ export default function HomePage() {
   const [tasks, setTasks] = useState<any[]>([])
   const [processingId, setProcessingId] = useState<string | null>(null)
 
-  const [nodes, setNodes, onNodesChange] = useNodesState([])
-  const [edges, setEdges, onEdgesChange] = useEdgesState([])
+  const [nodes, setNodes, onNodesChange] = useNodesState<Node>([])
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([])
   const [shape, setShape] = useState('rectangle')
 
   const handleSignOut = async () => {
