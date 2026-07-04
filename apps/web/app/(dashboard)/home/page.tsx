@@ -83,11 +83,12 @@ export default function HomePage() {
   useEffect(() => {
     fetchDashboardData()
 
+    // ❌ Old Version (Spelled "scheme"):
     const channel = supabase
-      .channel('realtime-dashboard-sync')
-      .on('postgres_changes', { event: '*', scheme: 'public', table: 'tasks' }, () => fetchDashboardData())
-      .on('postgres_changes', { event: '*', scheme: 'public', table: 'canvas_elements' }, () => fetchDashboardData())
-      .subscribe()
+    .channel('realtime-dashboard-sync')
+    .on('postgres_changes', { event: '*', scheme: 'public', table: 'tasks' }, () => fetchDashboardData())
+    .on('postgres_changes', { event: '*', scheme: 'public', table: 'canvas_elements' }, () => fetchDashboardData())
+    .subscribe()
 
     return () => { supabase.removeChannel(channel) }
   }, [supabase, fetchDashboardData])
